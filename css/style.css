@@ -29,19 +29,46 @@ main {
     width: 100%;
     height: calc(100vh - 186px);
     margin-top: 106px;
-    background-color: blue;
+    background-color: #F3F3F3;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
 }
+.message:last-of-type{
+    margin-bottom: 0px;
+}
 .message{
-    background-color: blueviolet;
+    background-color: #FFFFFF;
     display: flex;
     align-items: center;
     min-height: 40px;
+    margin-bottom: 4px;
+    padding: 10px 9px 10px 8px;
     padding-left: 8px;
     padding-right: 9px;
-}  
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: normal;
+    color: black;
+    border-radius: 2px;
+}
+.message span{
+    color: #AAAAAA;
+    padding-right: 8px;
+}
+.message strong{
+    font-weight: 700;
+}
+.all{
+    background-color: #FFFFFF;
+}
+.status{
+    background-color: #DCDCDC;
+}
+.private{
+    background-color: #FFDEDE;
+}
+
 
 footer {
     width: 100%;
