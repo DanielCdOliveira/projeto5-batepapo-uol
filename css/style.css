@@ -1,10 +1,67 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     background-color: #F3F3F3;
     font-family: 'Roboto', sans-serif;
 }
+
+.login-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 3;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-screen img {
+    width: 130px;
+    height: 92px;
+    margin-top: 72px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 94px;
+}
+
+form :first-child {
+    margin-bottom: 15px;
+    width: 261px;
+    height: 54px;
+    /* background: #FFFFFF; */
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 4px;
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+    outline: none;
+}
+
+form :first-child::placeholder {
+    color: #AEAEAE;
+}
+
+form :last-child {
+    width: 109px;
+    height: 45px;
+    background-color: #E7E7E7;
+    color: #696969;
+    border-radius: 9px;
+    border: none;
+}
+
+
 
 header {
     width: 100%;
@@ -20,6 +77,7 @@ header {
     background-color: #FFFFFF;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
 }
+
 header img {
     width: 75px;
     height: 53px;
@@ -34,10 +92,12 @@ header img {
     flex-direction: column;
     overflow-y: scroll;
 }
-.message:last-of-type{
+
+.message:last-of-type {
     margin-bottom: 0px;
 }
-.message{
+
+.message {
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
@@ -52,20 +112,25 @@ header img {
     color: black;
     border-radius: 2px;
 }
-.message span{
+
+.message span {
     color: #AAAAAA;
     padding-right: 8px;
 }
-.message strong{
+
+.message strong {
     font-weight: 700;
 }
-.all{
+
+.all {
     background-color: #FFFFFF;
 }
-.status{
+
+.status {
     background-color: #DCDCDC;
 }
-.private{
+
+.private {
     background-color: #FFDEDE;
 }
 
@@ -84,6 +149,7 @@ footer {
     padding-left: 17px;
     padding-right: 27px;
 }
+
 footer input {
     font-family: 'Roboto', sans-serif;
     width: 100%;
@@ -96,11 +162,12 @@ footer input {
     line-height: 21px;
     color: black;
 }
+
 footer ion-icon {
     font-size: 26px;
 }
 
-.blur{
+.blur {
     position: fixed;
     z-index: 1;
     top: 0;
@@ -108,12 +175,14 @@ footer ion-icon {
     right: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.6);
-    transition: 0.5s linear;    
+    transition: 0.5s linear;
 }
-.hidden{
+
+.hidden {
     display: none;
 }
-nav{
+
+nav {
     width: 0px;
     height: 100%;
     z-index: 2;
@@ -122,12 +191,14 @@ nav{
     top: 0px;
     background-color: #FFFFFF;
     overflow-x: hidden;
-    transition: .5s linear;  
+    transition: .5s linear;
 }
-.show{
+
+.show {
     width: 259px;
 }
-h1{
+
+h1 {
     width: 259px;
     font-size: 16px;
     font-weight: 700;
@@ -135,25 +206,31 @@ h1{
     padding: 23px 45px;
     text-align: center;
 }
-.contacts{
+
+.contacts {
     margin-top: 4px;
     font-size: 16px;
-    line-height: 19px;;
+    line-height: 19px;
+    ;
 }
-.contacts ion-icon{
+
+.contacts ion-icon {
     font-size: 25px;
     margin-right: 8px;
 }
-.option img{
+
+.option img {
     width: 15px;
     position: absolute;
     right: 27px;
     display: none;
 }
-.option.selected img{
+
+.option.selected img {
     display: block;
 }
-nav li{
+
+nav li {
     width: 259px;
     height: 36px;
     display: flex;
@@ -161,12 +238,14 @@ nav li{
     position: relative;
     padding: 0px 17px;
 }
-.message-type{
+
+.message-type {
     width: 259px;
     margin-top: 4px;
     font-size: 16px;
     line-height: 19px;
 }
-.message-type ion-icon{
+
+.message-type ion-icon {
     font-size: 22px;
 }
