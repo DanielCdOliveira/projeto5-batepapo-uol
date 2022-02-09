@@ -25,7 +25,7 @@ header img {
     height: 53px;
 }
 
-main {
+.messages {
     width: 100%;
     height: calc(100vh - 186px);
     margin-top: 106px;
@@ -85,6 +85,7 @@ footer {
     padding-right: 27px;
 }
 footer input {
+    font-family: 'Roboto', sans-serif;
     width: 100%;
     height: 30px;
     border: none;
@@ -95,10 +96,59 @@ footer input {
     line-height: 21px;
     color: black;
 }
-footer input::placeholder {
-    color: black;
-    font-weight: 400;
-}
 footer ion-icon {
     font-size: 26px;
+}
+
+nav{
+    width: 259px;
+    height: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    animation-duration: 4s;
+}
+
+h1{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18.75px;
+    padding: 23px 45px;
+    text-align: center;
+}
+.contacts{
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 19px;;
+}
+.contacts ion-icon{
+    font-size: 25px;
+}
+.option img{
+    width: 15px;
+    position: absolute;
+    right: 27px;
+    display: none;
+}
+.option.selected img{
+    display: block;
+}
+nav li{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0px 17px;
+}
+.message-type{
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 19px;
+}
+.message-type ion-icon{
+    font-size: 22px;
 }
