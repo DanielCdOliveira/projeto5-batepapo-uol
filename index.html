@@ -19,7 +19,7 @@
 <body>
     <header>
         <img src="assets/uol-icon.png" alt="icone uol">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon onclick="navInteract()" name="people"></ion-icon>
     </header>
 
     <ul class="messages">
@@ -33,75 +33,79 @@
         </li>
         <li class="message all">
             <span>(09:22:38)</span>
-            <p><strong>Maria</strong> para <strong>João</strong>:  Oi João :)</p>
+            <p><strong>Maria</strong> para <strong>João</strong>: Oi João :)</p>
         </li>
         <li class="message private">
             <span>(09:22:48)</span>
-            <p><strong>João</strong> reservadamente para Maria:  Oi gatinha quer tc?</p>
+            <p><strong>João</strong> reservadamente para Maria: Oi gatinha quer tc?</p>
         </li>
         <li class="message status">
             <span>(09:22:58)</span>
-            <p><strong>Maria</strong>  sai da sala...</p>
-        </li> <li class="message all">
+            <p><strong>Maria</strong> sai da sala...</p>
+        </li>
+        <li class="message all">
             <span>(09:22:28)</span>
             <p><strong>João</strong> para Todos: Bom dia</p>
         </li>
         <li class="message all">
             <span>(09:22:38)</span>
-            <p><strong>Maria</strong> para <strong>João</strong>:  Oi João :)</p>
+            <p><strong>Maria</strong> para <strong>João</strong>: Oi João :)</p>
         </li>
         <li class="message private">
             <span>(09:22:48)</span>
-            <p><strong>João</strong> reservadamente para Maria:  Oi gatinha quer tc?</p>
+            <p><strong>João</strong> reservadamente para Maria: Oi gatinha quer tc?</p>
         </li>
         <li class="message status">
             <span>(09:22:58)</span>
-            <p><strong>Maria</strong>  sai da sala...</p>
-        </li> <li class="message all">
+            <p><strong>Maria</strong> sai da sala...</p>
+        </li>
+        <li class="message all">
             <span>(09:22:28)</span>
             <p><strong>João</strong> para Todos: Bom dia</p>
         </li>
         <li class="message all">
             <span>(09:22:38)</span>
-            <p><strong>Maria</strong> para <strong>João</strong>:  Oi João :)</p>
+            <p><strong>Maria</strong> para <strong>João</strong>: Oi João :)</p>
         </li>
         <li class="message private">
             <span>(09:22:48)</span>
-            <p><strong>João</strong> reservadamente para Maria:  Oi gatinha quer tc?</p>
+            <p><strong>João</strong> reservadamente para Maria: Oi gatinha quer tc?</p>
         </li>
         <li class="message status">
             <span>(09:22:58)</span>
-            <p><strong>Maria</strong>  sai da sala...</p>
-        </li> <li class="message all">
+            <p><strong>Maria</strong> sai da sala...</p>
+        </li>
+        <li class="message all">
             <span>(09:22:28)</span>
             <p><strong>João</strong> para Todos: Bom dia</p>
         </li>
         <li class="message all">
             <span>(09:22:38)</span>
-            <p><strong>Maria</strong> para <strong>João</strong>:  Oi João :)</p>
+            <p><strong>Maria</strong> para <strong>João</strong>: Oi João :)</p>
         </li>
         <li class="message private">
             <span>(09:22:48)</span>
-            <p><strong>João</strong> reservadamente para Maria:  Oi gatinha quer tc?</p>
+            <p><strong>João</strong> reservadamente para Maria: Oi gatinha quer tc?</p>
         </li>
         <li class="message status">
             <span>(09:22:58)</span>
-            <p><strong>Maria</strong>  sai da sala...</p>
-        </li> <li class="message all">
+            <p><strong>Maria</strong> sai da sala...</p>
+        </li>
+        <li class="message all">
             <span>(09:22:28)</span>
             <p><strong>João</strong> para Todos: Bom dia</p>
         </li>
         <li class="message all">
             <span>(09:22:38)</span>
-            <p><strong>Maria</strong> para <strong>João</strong>:  Oi João :)</p>
+            <p><strong>Maria</strong> para <strong>João</strong>: Oi João :)</p>
         </li>
         <li class="message private">
             <span>(09:22:48)</span>
-            <p><strong>João</strong> reservadamente para Maria:  Oi gatinha quer tc?</p>
+            <p><strong>João</strong> reservadamente para Maria: Oi gatinha quer tc?</p>
         </li>
         <li class="message status">
             <span>(09:22:58)</span>
-            <p><strong>Maria</strong>  sai da sala...</p>
+            <p><strong>Maria</strong> sai da sala...</p>
         </li>
     </ul>
 
@@ -111,42 +115,42 @@
         <ion-icon name="paper-plane-outline"></ion-icon>
     </footer>
 
-    <aside>
-        <nav>
-            <h1>Escolha um contato para enviar mensagem:</h1>
-            <ul class="contacts">
-                <li onclick="selectContact(this)" class="option contact ">
-                    <ion-icon name="people"></ion-icon>
-                    <span>Todos</span>
-                    <img src="assets/Vector.png" alt="">
-                </li>
-                <li onclick="selectContact(this)" class="option contact ">
-                    <ion-icon name="person-circle"></ion-icon>
-                    <span>João</span>
-                    <img src="assets/Vector.png" alt="">
-                </li>
-                <li onclick="selectContact(this)" class="option contact ">
-                    <ion-icon name="person-circle"></ion-icon>
-                    <span>Maria</span>
-                    <img src="assets/Vector.png" alt="">
-                </li>
-            </ul>
-        
-            <h1>Escolha a visibilidade:</h1>
-            <ul class="message-type">
-                <li onclick="selectTypeMessage(this)" class="option message-option">
-                    <ion-icon name="lock-open"></ion-icon>
-                    <span>Público</span>
-                    <img src="assets/Vector.png" alt="">
-                </li>
-                <li onclick="selectTypeMessage(this)" class="option message-option">
-                    <ion-icon name="lock-closed"></ion-icon>
-                    <span>Reservadamente</span>
-                    <img src="assets/Vector.png" alt="">
-                </li>
-            </ul>
-        </nav>
-    </aside>
+    <div onclick="navInteract(this)" class="blur hidden"></div>
+    <nav>
+        <h1>Escolha um contato para enviar mensagem:</h1>
+        <ul class="contacts">
+            <li onclick="selectContact(this)" class="option contact ">
+                <ion-icon name="people"></ion-icon>
+                <span>Todos</span>
+                <img src="assets/Vector.png" alt="">
+            </li>
+            <li onclick="selectContact(this)" class="option contact ">
+                <ion-icon name="person-circle"></ion-icon>
+                <span>João</span>
+                <img src="assets/Vector.png" alt="">
+            </li>
+            <li onclick="selectContact(this)" class="option contact ">
+                <ion-icon name="person-circle"></ion-icon>
+                <span>Maria</span>
+                <img src="assets/Vector.png" alt="">
+            </li>
+        </ul>
+
+        <h1>Escolha a visibilidade:</h1>
+        <ul class="message-type">
+            <li onclick="selectTypeMessage(this)" class="option message-option">
+                <ion-icon name="lock-open"></ion-icon>
+                <span>Público</span>
+                <img src="assets/Vector.png" alt="">
+            </li>
+            <li onclick="selectTypeMessage(this)" class="option message-option">
+                <ion-icon name="lock-closed"></ion-icon>
+                <span>Reservadamente</span>
+                <img src="assets/Vector.png" alt="">
+            </li>
+        </ul>
+    </nav>
+
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="script/script.js"></script>

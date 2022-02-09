@@ -100,20 +100,35 @@ footer ion-icon {
     font-size: 26px;
 }
 
+.blur{
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: 0.5s linear;    
+}
+.hidden{
+    display: none;
+}
 nav{
-    width: 259px;
+    width: 0px;
     height: 100%;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    position: absolute;
+    z-index: 2;
+    position: fixed;
     right: 0px;
     top: 0px;
-    animation-duration: 4s;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+    transition: .5s linear;  
 }
-
+.show{
+    width: 259px;
+}
 h1{
+    width: 259px;
     font-size: 16px;
     font-weight: 700;
     line-height: 18.75px;
@@ -127,6 +142,7 @@ h1{
 }
 .contacts ion-icon{
     font-size: 25px;
+    margin-right: 8px;
 }
 .option img{
     width: 15px;
@@ -138,13 +154,15 @@ h1{
     display: block;
 }
 nav li{
-    height: 50px;
+    width: 259px;
+    height: 36px;
     display: flex;
     align-items: center;
     position: relative;
     padding: 0px 17px;
 }
 .message-type{
+    width: 259px;
     margin-top: 4px;
     font-size: 16px;
     line-height: 19px;
