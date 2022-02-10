@@ -22,7 +22,7 @@ function loginSucess() {
     let loginScreen = document.querySelector(".login-screen")
     loginScreen.classList.add("hidden")
     setInterval(sendStatus, 5000);
-    // setInterval(searchMessages, 3000)
+    setInterval(searchMessages, 3000)
     // zeraaaaaaaaar
 }
 // envia status
@@ -91,7 +91,7 @@ function privateMessage(element) {
 // scrolla pra ultima mensagem
 function scrollToLastMessage() {
     const lastMessage = document.querySelectorAll(".message")[numberOfMessages - 1];
-    // lastMessage.scrollIntoView();
+    lastMessage.scrollIntoView();
     numberOfMessages = 0;
 }
 
