@@ -238,13 +238,13 @@ nav li {
     padding: 0px 17px;
 }
 
-.message-type {
+.message-options {
     width: 259px;
     margin-top: 4px;
     font-size: 16px;
     line-height: 19px;
 }
 
-.message-type ion-icon {
+.message-options ion-icon {
     font-size: 22px;
 }
