@@ -10,7 +10,7 @@ let numberOfMessages = 0;
 function login() {
     userName.name = document.querySelector(".username").value
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", userName)
-
+    
     promise.then(loginSucess)
     promise.catch(loginFailure)
 
@@ -19,18 +19,28 @@ function login() {
 
 // LOGIN BEM SUCEDIDO => remove tela de login, envia status a cada 5s,atualiza e scrolla pra ultima msg a cada 3s
 function loginSucess() {
-    let loginScreen = document.querySelector(".login-screen")
-    loginScreen.classList.add("hidden")
-    setInterval(sendStatus, 5000);
+    let loadingImg = document.querySelector(".loading")
+    let form = document.querySelector("form")
+    loadingImg.style.display = "block"
+    form.style.display = "none"
     setInterval(searchMessages, 3000)
+    setTimeout(hideMenu,3500)
+    setInterval(sendStatus, 5000);
+    
     // zeraaaaaaaaar
 }
 // envia status
 function sendStatus() {
     axios.post("https://mock-api.driven.com.br/api/v4/uol/status", userName)
 }
+function hideMenu (){
+    let loginScreen = document.querySelector(".login-screen")
+    
+    loginScreen.classList.add("hidden")
+}
 // recebe mensagens do servidor
 function searchMessages() {
+    
     messagesList = ""
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages")
     promise.then(insertMessages)
