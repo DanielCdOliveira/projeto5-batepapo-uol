@@ -1,17 +1,15 @@
 const messagesDisplay = document.querySelector(".messages")
 
 let messagesList = "";
-
-
-
-
 let userName = {
     name: ""
 };
+let numberOfMessages = 0;
 
+// LOGAR NO CHAT
 function login() {
     userName.name = document.querySelector(".username").value
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", userName)  
+    const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", userName)
 
     promise.then(loginSucess)
     promise.catch(loginFailure)
@@ -19,87 +17,114 @@ function login() {
 
 }
 
+// LOGIN BEM SUCEDIDO => remove tela de login, envia status a cada 5s,atualiza e scrolla pra ultima msg a cada 3s
 function loginSucess() {
     let loginScreen = document.querySelector(".login-screen")
     loginScreen.classList.add("hidden")
     setInterval(sendStatus, 5000);
-    setInterval(searchMessages, 3000)
-    setInterval(scrollToLastMessage,3200)
+    // setInterval(searchMessages, 3000)
+    // zeraaaaaaaaar
 }
-function loginFailure(){
-    alert("Nome de usuario ja existente")
+// envia status
+function sendStatus() {
+    axios.post("https://mock-api.driven.com.br/api/v4/uol/status", userName)
 }
-
-
-function sendStatus (){
-    axios.post("https://mock-api.driven.com.br/api/v4/uol/status",userName)
-}
-
-
-function searchMessages(){
+// recebe mensagens do servidor
+function searchMessages() {
     messagesList = ""
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages")
     promise.then(insertMessages)
 }
-function insertMessages(response){
-    response.data.forEach(element => {
-       compareStatus(element);
-       messagesDisplay.innerHTML = messagesList;
+// mostra mensagem
+function insertMessages(response) {
+    response.data.forEach((element, index) => {
+        compareStatus(element, index);
+        messagesDisplay.innerHTML = messagesList;
     });
+    setTimeout(scrollToLastMessage, 200)
 }
-function compareStatus (element){
-    if(element.type === "status"){
-        messagesList += `<li class="message status">
+// gera o display das mensagens
+function compareStatus(element) {
+    if (element.type === "status") {
+
+        statusMessage(element);
+    } else if (element.type === "message") {
+
+        normalMessage(element);
+    } else if (element.type === "private_message") {
+
+        privateMessage(element);
+    }
+
+}
+// gera mensagem de status
+function statusMessage(element) {
+    messagesList += `
+    <li class="message status">
         <span>${element.time}</span>
         <p><strong>${element.from}</strong> ${element.text}</p>
+    </li>`;
+    numberOfMessages++;
+}
+// gera mensagem normal
+function normalMessage(element) {
+    messagesList += `
+    <li class="message all">
+        <span>${element.time}</span>
+        <p><strong>${element.from}</strong> para <strong>${element.to}</strong>: ${element.text}</p>
     </li>`
-    }else if(element.type === "message"){
-        messagesList += `<li class="message all">
-            <span>${element.time}</span>
-            <p><strong>${element.from}</strong> para <strong>${element.to}</strong>: ${element.text}</p>
-        </li>`
-    }else if(element.type === "private_message"){
-        if(element.from == userName){
-            messagesList +=`<li class="message private">
-            <span>${element.time}</span>
-            <p><strong>${element.from}</strong> reservadamente para <strong>${element.to}</strong>: ${element.text}</p>
-        </li>`
-        }
+    numberOfMessages++;
+}
+// gera mensagem privada
+function privateMessage(element) {
+    
+    if(element.to == userName.name || element.from == userName.name){
+    messagesList += `
+    <li class="message private">
+        <span>${element.time}</span>
+        <p><strong>${element.from}</strong> reservadamente para <strong>${element.to}</strong>: ${element.text}</p>
+    </li>`
+    numberOfMessages++;
     }
 }
 
-function scrollToLastMessage (){
-    const lastMessage = document.querySelectorAll(".message")[99];
-    lastMessage.scrollIntoView();
+// scrolla pra ultima mensagem
+function scrollToLastMessage() {
+    const lastMessage = document.querySelectorAll(".message")[numberOfMessages - 1];
+    // lastMessage.scrollIntoView();
+    numberOfMessages = 0;
 }
 
-// ENVIAR MENSAGEM
+// LOGIN FALHOU
+function loginFailure() {
+    alert("Nome de usuario ja existente")
+}
 
+
+// ENVIAR MENSAGEM
 function sendMessage() {
 
-    
     let type = document.querySelector('.message-type.selected').querySelector("span").innerText
-    if(type == "Público"){
+    if (type == "Público") {
         type = "message";
-    }else{
+    } else {
         type = "private_message"
     }
 
+    let text = document.querySelector("#message-text");
+    console.log(text)
     let message = {
         from: userName.name,
         to: document.querySelector('.contact.selected').querySelector("span").innerText,
-        text: document.querySelector("#message-text").value,
+        text: text.value,
         type: type
 
     }
-    console.log(message)
-
+    const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", message)
+// mensagem de erro quando n der pra enviar a mensagem
+    text.value = "";
     
-
-
-
 }
-
 // FUNÇOES DO MENU LATERAL
 
 function selectContact(element) {

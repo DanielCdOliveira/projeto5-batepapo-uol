@@ -60,8 +60,6 @@ form :last-child {
     border: none;
 }
 
-
-
 header {
     width: 100%;
     height: 80px;
@@ -82,14 +80,13 @@ header img {
     height: 53px;
 }
 
-.messages {
-    width: 100%;
+main {
+    background-color: aqua;
+    width: 100vw;
     height: calc(100vh - 186px);
     margin-top: 106px;
-    background-color: #F3F3F3;
-    display: flex;
-    flex-direction: column;
     overflow-y: scroll;
+    background-color: #F3F3F3;
 }
 
 .message:last-of-type {
@@ -100,7 +97,7 @@ header img {
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
-    min-height: 40px;
+    min-height: 20px;
     margin-bottom: 4px;
     padding: 10px 9px 10px 8px;
     padding-left: 8px;
@@ -119,10 +116,6 @@ header img {
 
 .message strong {
     font-weight: 700;
-}
-
-.all {
-    background-color: #FFFFFF;
 }
 
 .status {
