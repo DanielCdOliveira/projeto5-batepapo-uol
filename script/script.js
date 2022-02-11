@@ -1,17 +1,22 @@
+// ul onde ficarao as mensagens
 const messagesDisplay = document.querySelector(".messages")
+// usado para atualizar mensagens
 let messagesList = "";
-
+// nome de usuário
 let userName = {
     name: ""
 };
+// numero de mensagens mostradas para scrollar para a ultima
 let numberOfMessages = 0;
-
+// tela de falha no login
 let failure = document.querySelector(".failure")
-
+// onde ficarao os contatos
 let contactDisplay = document.querySelector(".contacts")
+// sera usado para atualizar os contatos
 let contactList = "";
+// usado para selecionar todos caso o usuário selecionado saia
 let contactsArray = []
-
+// usuário selecionado
 let contactSelected = "";
 
 
@@ -59,7 +64,7 @@ function hideMenu() {
 function loginFailure() {
     let failure = document.querySelector(".failure")
 
-    if (userName.name == "") {
+    if (userName.name == null) {
         failure.innerHTML = "Nome de usuário inválido!"
     } else {
         failure.innerHTML = `
@@ -73,7 +78,7 @@ function loginFailure() {
 // RECEBE CONTATOS DO SERVIDOR
 function searchContacts() {
 
-    console.log(contactSelected)
+    
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/participants")
     promise.then(insertContacts)
 }
@@ -93,7 +98,7 @@ function insertContacts(response) {
         <img src="assets/Vector.png" alt="">
     </li>`;
     } else {
-        contactSelected = ""
+        contactSelected = null;
         contactList = `
     <li onclick="selectContact(this)" class="option contact selected">
         <ion-icon name="people"></ion-icon>
@@ -198,26 +203,28 @@ function scrollToLastMessage() {
 // ENVIAR MENSAGEM
 function sendMessage() {
 
-    let type = document.querySelector('.message-type.selected').querySelector("span").innerText
-    let text = document.querySelector("#message-text");
+    let type = document.querySelector('.message-type.selected').querySelector("span").innerText;
+    let text = document.querySelector("#message-text").value;
 
-    if (type == "Público") {
-        type = "message";
-    } else {
-        type = "private_message"
+    if (text !== "") {
+        if (type == "Público") {
+            type = "message";
+        } else {
+            type = "private_message"
+        }
+        let message = {
+            from: userName.name,
+            to: document.querySelector('.contact.selected').querySelector("span").innerText,
+            text: text.value,
+            type: type
+        }
+
+        const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", message)
+        // promise.catch(refresh)
+
+        text.value = "";
     }
 
-    let message = {
-        from: userName.name,
-        to: document.querySelector('.contact.selected').querySelector("span").innerText,
-        text: text.value,
-        type: type
-    }
-
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", message)
-    promise.catch(refresh)
-
-    text.value = "";
 }
 // atuliza caso nao consiga enviar mensagem
 function refresh() {
@@ -230,7 +237,6 @@ function selectContact(element) {
     deselect('contact');
     element.classList.add("selected");
     contactSelected = element.querySelector("span").innerText;
-    console.log(contactSelected)
 }
 
 function selectTypeMessage(element) {
@@ -253,6 +259,8 @@ function navInteract() {
     nav.classList.toggle("show")
 }
 
+
+// ENVIAR MENSAGEM COM ENTER
 document.addEventListener("keypress", function (e) {
     if (e.key === 'Enter') {
 
