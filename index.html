@@ -51,7 +51,12 @@
     <div onclick="navInteract(this)" class="blur hidden"></div>
     <nav>
         <h1>Escolha um contato para enviar mensagem:</h1>
-        <ul class="contacts"></ul>
+        <ul class="contacts">
+        <li onclick="selectContact(this)" class="option contact selected">
+            <ion-icon name="people"></ion-icon>
+            <span>Todos</span>
+            <img src="assets/Vector.png" alt="">
+        </li></ul>
 
         <h1>Escolha a visibilidade:</h1>
         <ul class="message-options">

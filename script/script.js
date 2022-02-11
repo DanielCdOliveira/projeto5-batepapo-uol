@@ -9,15 +9,17 @@ let numberOfMessages = 0;
 let failure = document.querySelector(".failure")
 
 let contactDisplay = document.querySelector(".contacts")
-let contactList = [];
+let contactList = "";
+let contactsArray = []
 
-let contactsArray = ["Todos"];
+let contactSelected = document.querySelector(".contact.selected").querySelector("span").innerText;
+console.log(contactSelected)
 
 // LOGAR NO CHAT
 function login() {
     userName.name = document.querySelector(".username").value
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", userName)
-    
+
     promise.then(loginSucess)
     promise.catch(loginFailure)
 
@@ -35,14 +37,13 @@ function loginSucess() {
     searchMessages()
     setInterval(searchContacts, 10000);
     searchContacts();
-    setTimeout(hideMenu,2000)
+    setTimeout(hideMenu, 2000)
     setInterval(sendStatus, 5000);
 
 }
 // LOGIN FALHOU
 function loginFailure() {
     let failure = document.querySelector(".failure")
-    console.log(failure)
     failure.innerHTML = `
     O nome de usuário <strong>${userName.name}</strong> já está em uso, por favor escolha outro!`
 }
@@ -58,32 +59,77 @@ function sendStatus() {
 
 
 // esconde tela de login
-function hideMenu (){
+function hideMenu() {
     let loginScreen = document.querySelector(".login-screen")
-    
+
     loginScreen.classList.add("hidden")
 }
 
 // RECEBE CONTATOS DO SERVIDOR
-function searchContacts (){
-    contactList = `<li onclick="selectContact(this)" class="option contact">
-    <ion-icon name="people"></ion-icon>
-    <span>Todos</span>
-    <img src="assets/Vector.png" alt="">
-</li>`;
+function searchContacts() {
+    contactList = `
+    <li onclick="selectContact(this)" class="option contact">
+        <ion-icon name="people"></ion-icon>
+        <span>Todos</span>
+        <img src="assets/Vector.png" alt="">
+    </li>`;
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/participants")
     promise.then(insertContacts)
 }
-function insertContacts (response){
+
+function insertContacts(response) {
+    contactSelected = document.querySelector(".contact.selected").querySelector("span").innerText;
+    
     response.data.forEach(element => {
-        contactList += `
+        contactsArray.push(element.name)
+    })
+
+    if(contactsArray.includes(contactSelected)){
+        contactList = `
+    <li onclick="selectContact(this)" class="option contact">
+        <ion-icon name="people"></ion-icon>
+        <span>Todos</span>
+        <img src="assets/Vector.png" alt="">
+    </li>`;
+    }else{
+        contactList = `
+    <li onclick="selectContact(this)" class="option contact selected">
+        <ion-icon name="people"></ion-icon>
+        <span>Todos</span>
+        <img src="assets/Vector.png" alt="">
+    </li>`;
+
+        // ADICIONAR FULANO SAIU DA SALA
+
+
+    }
+
+
+
+
+
+    response.data.forEach(element => {
+
+
+        if (element.name == contactSelected) {
+            contactList += `
+        <li onclick="selectContact(this)" class="option contact selected">
+            <ion-icon name="people"></ion-icon>
+            <span>${element.name}</span>
+            <img src="assets/Vector.png" alt="">
+        </li>`
+            contactDisplay.innerHTML = contactList;
+        } else {
+            contactList += `
         <li onclick="selectContact(this)" class="option contact">
             <ion-icon name="people"></ion-icon>
             <span>${element.name}</span>
             <img src="assets/Vector.png" alt="">
         </li>`
-        contactDisplay.innerHTML = contactList;
+            contactDisplay.innerHTML = contactList;
+        }
     })
+    
 }
 
 
@@ -92,7 +138,7 @@ function insertContacts (response){
 
 // RECEBE MENSAGENS DO SERVIDOR
 function searchMessages() {
-    
+
     messagesList = ""
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages")
     promise.then(insertMessages)
@@ -139,14 +185,14 @@ function normalMessage(element) {
 }
 // gera mensagem privada
 function privateMessage(element) {
-    
-    if(element.to == userName.name || element.from == userName.name){
-    messagesList += `
+
+    if (element.to == userName.name || element.from == userName.name) {
+        messagesList += `
     <li data-identifier="message" class="message private">
         <span>${element.time}</span>
         <p><strong>${element.from}</strong> reservadamente para <strong>${element.to}</strong>: ${element.text}</p>
     </li>`
-    numberOfMessages++;
+        numberOfMessages++;
     }
 }
 // scrolla pra ultima mensagem
@@ -185,7 +231,7 @@ function sendMessage() {
 }
 
 
-function refresh (){
+function refresh() {
     window.location.reload()
 }
 // FUNÇOES DO MENU LATERAL
@@ -214,7 +260,3 @@ function navInteract() {
     const nav = document.querySelector("nav");
     nav.classList.toggle("show")
 }
-
-
-
-
