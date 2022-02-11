@@ -204,9 +204,9 @@ function scrollToLastMessage() {
 function sendMessage() {
 
     let type = document.querySelector('.message-type.selected').querySelector("span").innerText;
-    let text = document.querySelector("#message-text").value;
-
-    if (text !== "") {
+    let text = document.querySelector("#message-text");
+    
+    if (text.value !== "") {
         if (type == "Público") {
             type = "message";
         } else {
@@ -218,7 +218,7 @@ function sendMessage() {
             text: text.value,
             type: type
         }
-
+        
         const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", message)
         // promise.catch(refresh)
 
