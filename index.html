@@ -20,11 +20,12 @@
 
     <div class="login-screen">
         <img class="uol-icon" src="assets/uol-icon.png" alt="">
-        <form action="">
-            <input data-identifier="enter-name" class="username" type="text" placeholder="Digite seu nome">
-            <input data-identifier="start" onclick="login()" type="button" value="Entrar">
-            
-        </form>
+        
+            <div class="form">
+                <input data-identifier="enter-name" class="username" type="text" placeholder="Digite seu nome">
+                <input data-identifier="start" onclick="login()" type="button" value="Entrar">
+            </div>
+        
         <div class="loading">
             <img  src="assets/loading.gif" alt="">
             <span>Entrando...</span>
@@ -45,7 +46,7 @@
 
     <footer>
         <input id="message-text" type="text" placeholder="Escreva aqui...">
-        <ion-icon data-identifier="send-message" onclick="sendMessage()" name="paper-plane-outline"></ion-icon>
+        <ion-icon class="send-message"data-identifier="send-message" onclick="sendMessage()" name="paper-plane-outline"></ion-icon>
     </footer>
 
     <div onclick="navInteract(this)" class="blur hidden"></div>

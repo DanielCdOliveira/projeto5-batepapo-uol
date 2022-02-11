@@ -14,6 +14,7 @@ let contactsArray = []
 
 let contactSelected = "";
 
+
 // LOGAR NO CHAT
 function login() {
     userName.name = document.querySelector(".username").value
@@ -25,10 +26,11 @@ function login() {
 
 }
 
+
 // LOGIN BEM SUCEDIDO => remove tela de login, envia status a cada 5s,atualiza e scrolla pra ultima msg a cada 3s
 function loginSucess() {
     let loading = document.querySelector(".loading")
-    let form = document.querySelector("form")
+    let form = document.querySelector(".form")
     loading.style.display = "flex"
     form.style.display = "none"
     failure.style.display = "none"
@@ -40,29 +42,33 @@ function loginSucess() {
     setInterval(sendStatus, 5000);
 
 }
-// LOGIN FALHOU
-function loginFailure() {
-    let failure = document.querySelector(".failure")
-    failure.innerHTML = `
-    O nome de usuário <strong>${userName.name}</strong> já está em uso, por favor escolha outro!`
-}
-
-
-
-
 
 // envia status
 function sendStatus() {
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", userName)
 }
-
-
 // esconde tela de login
 function hideMenu() {
     let loginScreen = document.querySelector(".login-screen")
 
     loginScreen.classList.add("hidden")
 }
+
+
+// LOGIN FALHOU
+function loginFailure() {
+    let failure = document.querySelector(".failure")
+
+    if (userName.name == "") {
+        failure.innerHTML = "Nome de usuário inválido!"
+    } else {
+        failure.innerHTML = `
+    O nome de usuário <strong>${userName.name}</strong> já está em uso, por favor escolha outro!`
+    }
+
+}
+
+
 
 // RECEBE CONTATOS DO SERVIDOR
 function searchContacts() {
@@ -71,7 +77,7 @@ function searchContacts() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/participants")
     promise.then(insertContacts)
 }
-
+// cria display para os contatos
 function insertContacts(response) {
 
 
@@ -120,9 +126,6 @@ function insertContacts(response) {
     });
 
 }
-
-
-
 
 
 // RECEBE MENSAGENS DO SERVIDOR
@@ -192,8 +195,6 @@ function scrollToLastMessage() {
 }
 
 
-
-
 // ENVIAR MENSAGEM
 function sendMessage() {
 
@@ -218,13 +219,13 @@ function sendMessage() {
 
     text.value = "";
 }
-
-
+// atuliza caso nao consiga enviar mensagem
 function refresh() {
     window.location.reload()
 }
-// FUNÇOES DO MENU LATERAL
 
+
+// FUNÇOES DO MENU LATERAL
 function selectContact(element) {
     deselect('contact');
     element.classList.add("selected");
@@ -251,3 +252,13 @@ function navInteract() {
     const nav = document.querySelector("nav");
     nav.classList.toggle("show")
 }
+
+document.addEventListener("keypress", function (e) {
+    if (e.key === 'Enter') {
+
+        var btn = document.querySelector(".send-message");
+
+        btn.click();
+
+    }
+});
