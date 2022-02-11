@@ -12,8 +12,7 @@ let contactDisplay = document.querySelector(".contacts")
 let contactList = "";
 let contactsArray = []
 
-let contactSelected = document.querySelector(".contact.selected").querySelector("span").innerText;
-console.log(contactSelected)
+let contactSelected = "";
 
 // LOGAR NO CHAT
 function login() {
@@ -35,7 +34,7 @@ function loginSucess() {
     failure.style.display = "none"
     setInterval(searchMessages, 3000)
     searchMessages()
-    setInterval(searchContacts, 10000);
+    setInterval(searchContacts, 5000);
     searchContacts();
     setTimeout(hideMenu, 2000)
     setInterval(sendStatus, 5000);
@@ -67,46 +66,36 @@ function hideMenu() {
 
 // RECEBE CONTATOS DO SERVIDOR
 function searchContacts() {
-    contactList = `
-    <li onclick="selectContact(this)" class="option contact">
-        <ion-icon name="people"></ion-icon>
-        <span>Todos</span>
-        <img src="assets/Vector.png" alt="">
-    </li>`;
+
+    console.log(contactSelected)
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/participants")
     promise.then(insertContacts)
 }
 
 function insertContacts(response) {
-    contactSelected = document.querySelector(".contact.selected").querySelector("span").innerText;
-    
+
+
     response.data.forEach(element => {
         contactsArray.push(element.name)
     })
 
-    if(contactsArray.includes(contactSelected)){
+    if (contactsArray.includes(contactSelected)) {
         contactList = `
     <li onclick="selectContact(this)" class="option contact">
         <ion-icon name="people"></ion-icon>
         <span>Todos</span>
         <img src="assets/Vector.png" alt="">
     </li>`;
-    }else{
+    } else {
+        contactSelected = ""
         contactList = `
     <li onclick="selectContact(this)" class="option contact selected">
         <ion-icon name="people"></ion-icon>
         <span>Todos</span>
         <img src="assets/Vector.png" alt="">
     </li>`;
-
-        // ADICIONAR FULANO SAIU DA SALA
-
-
     }
-
-
-
-
+    contactsArray = []
 
     response.data.forEach(element => {
 
@@ -128,8 +117,8 @@ function insertContacts(response) {
         </li>`
             contactDisplay.innerHTML = contactList;
         }
-    })
-    
+    });
+
 }
 
 
@@ -239,6 +228,8 @@ function refresh() {
 function selectContact(element) {
     deselect('contact');
     element.classList.add("selected");
+    contactSelected = element.querySelector("span").innerText;
+    console.log(contactSelected)
 }
 
 function selectTypeMessage(element) {
