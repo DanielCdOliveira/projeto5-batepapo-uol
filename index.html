@@ -45,29 +45,13 @@
 
     <footer>
         <input id="message-text" type="text" placeholder="Escreva aqui...">
-        <ion-icon onclick="sendMessage()" name="paper-plane-outline"></ion-icon>
+        <ion-icon data-identifier="send-message" onclick="sendMessage()" name="paper-plane-outline"></ion-icon>
     </footer>
 
     <div onclick="navInteract(this)" class="blur hidden"></div>
     <nav>
         <h1>Escolha um contato para enviar mensagem:</h1>
-        <ul class="contacts">
-            <li onclick="selectContact(this)" class="option contact selected">
-                <ion-icon name="people"></ion-icon>
-                <span>Todos</span>
-                <img src="assets/Vector.png" alt="">
-            </li>
-            <li onclick="selectContact(this)" class="option contact ">
-                <ion-icon name="person-circle"></ion-icon>
-                <span>asa</span>
-                <img src="assets/Vector.png" alt="">
-            </li>
-            <li onclick="selectContact(this)" class="option contact ">
-                <ion-icon name="person-circle"></ion-icon>
-                <span>Maria</span>
-                <img src="assets/Vector.png" alt="">
-            </li>
-        </ul>
+        <ul class="contacts"></ul>
 
         <h1>Escolha a visibilidade:</h1>
         <ul class="message-options">

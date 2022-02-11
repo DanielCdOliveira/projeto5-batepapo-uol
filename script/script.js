@@ -1,13 +1,17 @@
 const messagesDisplay = document.querySelector(".messages")
 let messagesList = "";
+
 let userName = {
     name: ""
 };
 let numberOfMessages = 0;
+
 let failure = document.querySelector(".failure")
 
+let contactDisplay = document.querySelector(".contacts")
+let contactList = [];
 
-
+let contactsArray = ["Todos"];
 
 // LOGAR NO CHAT
 function login() {
@@ -28,10 +32,12 @@ function loginSucess() {
     form.style.display = "none"
     failure.style.display = "none"
     setInterval(searchMessages, 3000)
-    setTimeout(hideMenu,3500)
+    searchMessages()
+    setInterval(searchContacts, 10000);
+    searchContacts();
+    setTimeout(hideMenu,2000)
     setInterval(sendStatus, 5000);
-    
-    // zeraaaaaaaaar
+
 }
 // LOGIN FALHOU
 function loginFailure() {
@@ -47,14 +53,44 @@ function loginFailure() {
 
 // envia status
 function sendStatus() {
-    axios.post("https://mock-api.driven.com.br/api/v4/uol/status", userName)
+    const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", userName)
 }
+
+
+// esconde tela de login
 function hideMenu (){
     let loginScreen = document.querySelector(".login-screen")
     
     loginScreen.classList.add("hidden")
 }
-// recebe mensagens do servidor
+
+// RECEBE CONTATOS DO SERVIDOR
+function searchContacts (){
+    contactList = `<li onclick="selectContact(this)" class="option contact">
+    <ion-icon name="people"></ion-icon>
+    <span>Todos</span>
+    <img src="assets/Vector.png" alt="">
+</li>`;
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/participants")
+    promise.then(insertContacts)
+}
+function insertContacts (response){
+    response.data.forEach(element => {
+        contactList += `
+        <li onclick="selectContact(this)" class="option contact">
+            <ion-icon name="people"></ion-icon>
+            <span>${element.name}</span>
+            <img src="assets/Vector.png" alt="">
+        </li>`
+        contactDisplay.innerHTML = contactList;
+    })
+}
+
+
+
+
+
+// RECEBE MENSAGENS DO SERVIDOR
 function searchMessages() {
     
     messagesList = ""
@@ -86,7 +122,7 @@ function compareStatus(element) {
 // gera mensagem de status
 function statusMessage(element) {
     messagesList += `
-    <li class="message status">
+    <li data-identifier="message" class="message status">
         <span>${element.time}</span>
         <p><strong>${element.from}</strong> ${element.text}</p>
     </li>`;
@@ -95,7 +131,7 @@ function statusMessage(element) {
 // gera mensagem normal
 function normalMessage(element) {
     messagesList += `
-    <li class="message all">
+    <li data-identifier="message" class="message all">
         <span>${element.time}</span>
         <p><strong>${element.from}</strong> para <strong>${element.to}</strong>: ${element.text}</p>
     </li>`
@@ -106,14 +142,13 @@ function privateMessage(element) {
     
     if(element.to == userName.name || element.from == userName.name){
     messagesList += `
-    <li class="message private">
+    <li data-identifier="message" class="message private">
         <span>${element.time}</span>
         <p><strong>${element.from}</strong> reservadamente para <strong>${element.to}</strong>: ${element.text}</p>
     </li>`
     numberOfMessages++;
     }
 }
-
 // scrolla pra ultima mensagem
 function scrollToLastMessage() {
     const lastMessage = document.querySelectorAll(".message")[numberOfMessages - 1];
@@ -142,11 +177,16 @@ function sendMessage() {
         text: text.value,
         type: type
     }
+
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", message)
-    
-// mensagem de erro quando n der pra enviar a mensagem
+    promise.catch(refresh)
+
     text.value = "";
-    
+}
+
+
+function refresh (){
+    window.location.reload()
 }
 // FUNÇOES DO MENU LATERAL
 
@@ -174,3 +214,7 @@ function navInteract() {
     const nav = document.querySelector("nav");
     nav.classList.toggle("show")
 }
+
+
+
+
