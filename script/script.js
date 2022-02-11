@@ -1,10 +1,13 @@
 const messagesDisplay = document.querySelector(".messages")
-
 let messagesList = "";
 let userName = {
     name: ""
 };
 let numberOfMessages = 0;
+let failure = document.querySelector(".failure")
+
+
+
 
 // LOGAR NO CHAT
 function login() {
@@ -19,16 +22,29 @@ function login() {
 
 // LOGIN BEM SUCEDIDO => remove tela de login, envia status a cada 5s,atualiza e scrolla pra ultima msg a cada 3s
 function loginSucess() {
-    let loadingImg = document.querySelector(".loading")
+    let loading = document.querySelector(".loading")
     let form = document.querySelector("form")
-    loadingImg.style.display = "block"
+    loading.style.display = "flex"
     form.style.display = "none"
+    failure.style.display = "none"
     setInterval(searchMessages, 3000)
     setTimeout(hideMenu,3500)
     setInterval(sendStatus, 5000);
     
     // zeraaaaaaaaar
 }
+// LOGIN FALHOU
+function loginFailure() {
+    let failure = document.querySelector(".failure")
+    console.log(failure)
+    failure.innerHTML = `
+    O nome de usuário <strong>${userName.name}</strong> já está em uso, por favor escolha outro!`
+}
+
+
+
+
+
 // envia status
 function sendStatus() {
     axios.post("https://mock-api.driven.com.br/api/v4/uol/status", userName)
@@ -105,32 +121,29 @@ function scrollToLastMessage() {
     numberOfMessages = 0;
 }
 
-// LOGIN FALHOU
-function loginFailure() {
-    alert("Nome de usuario ja existente")
-}
+
 
 
 // ENVIAR MENSAGEM
 function sendMessage() {
 
     let type = document.querySelector('.message-type.selected').querySelector("span").innerText
+    let text = document.querySelector("#message-text");
+
     if (type == "Público") {
         type = "message";
     } else {
         type = "private_message"
     }
 
-    let text = document.querySelector("#message-text");
-    console.log(text)
     let message = {
         from: userName.name,
         to: document.querySelector('.contact.selected').querySelector("span").innerText,
         text: text.value,
         type: type
-
     }
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", message)
+    
 // mensagem de erro quando n der pra enviar a mensagem
     text.value = "";
     

@@ -20,17 +20,10 @@ body {
     overflow: hidden;
 }
 
-.uol-icon{
+.uol-icon {
     width: 130px;
     height: 92px;
     margin-top: 72px;
-}
-.loading{
-    width: 180px;
-    height: 180px;
-    position: fixed;
-    top: 270px;
-    display: none;
 }
 
 form {
@@ -39,6 +32,34 @@ form {
     align-items: center;
     margin-top: 94px;
 }
+.loading {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loading img {
+    width: 180px;
+    height: 180px;
+    margin-top: 80px;
+}
+.loading span{
+    font-size: 22px;
+    font-weight: 500;
+    padding-top: 20px;
+    padding-left: 25px;
+}
+.failure {
+    margin-top: 40px;
+    color: red;
+    font-size: 18px;
+    padding: 0px 30px;
+    text-align: center;
+}
+.failure strong{
+    font-weight: 700;
+}
+
 
 form :first-child {
     margin-bottom: 15px;
