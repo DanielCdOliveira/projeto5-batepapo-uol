@@ -6,8 +6,7 @@ let messagesList = "";
 let userName = {
     name: ""
 };
-// numero de mensagens mostradas para scrollar para a ultima
-let numberOfMessages = 0;
+
 // tela de falha no login
 let failure = document.querySelector(".failure")
 // onde ficarao os contatos
@@ -17,9 +16,9 @@ let contactList = "";
 // usado para selecionar todos caso o usuário selecionado saia
 let contactsArray = []
 // usuário selecionado
-let contactSelected = "";
-
-
+let contactSelected = null;
+// Tipo da mensagem a ser enviada
+let type = document.querySelector('.message-type.selected').querySelector("span").innerText;
 // LOGAR NO CHAT
 function login() {
     userName.name = document.querySelector(".username").value
@@ -45,7 +44,6 @@ function loginSucess() {
     searchContacts();
     setTimeout(hideMenu, 2000)
     setInterval(sendStatus, 5000);
-
 }
 
 // envia status
@@ -78,7 +76,7 @@ function loginFailure() {
 // RECEBE CONTATOS DO SERVIDOR
 function searchContacts() {
 
-    
+
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/participants")
     promise.then(insertContacts)
 }
@@ -110,26 +108,28 @@ function insertContacts(response) {
 
     response.data.forEach(element => {
 
-
-        if (element.name == contactSelected) {
-            contactList += `
+        if (element.name != userName.name) {
+            if (element.name == contactSelected) {
+                contactList += `
         <li onclick="selectContact(this)" class="option contact selected">
             <ion-icon name="people"></ion-icon>
             <span>${element.name}</span>
             <img src="assets/Vector.png" alt="">
         </li>`
-            contactDisplay.innerHTML = contactList;
-        } else {
-            contactList += `
+
+            } else {
+                contactList += `
         <li onclick="selectContact(this)" class="option contact">
             <ion-icon name="people"></ion-icon>
             <span>${element.name}</span>
             <img src="assets/Vector.png" alt="">
         </li>`
-            contactDisplay.innerHTML = contactList;
+
+            }
         }
     });
-
+    contactDisplay.innerHTML = contactList;
+    changeText()
 }
 
 
@@ -169,7 +169,6 @@ function statusMessage(element) {
         <span>${element.time}</span>
         <p><strong>${element.from}</strong> ${element.text}</p>
     </li>`;
-    numberOfMessages++;
 }
 // gera mensagem normal
 function normalMessage(element) {
@@ -178,7 +177,6 @@ function normalMessage(element) {
         <span>${element.time}</span>
         <p><strong>${element.from}</strong> para <strong>${element.to}</strong>: ${element.text}</p>
     </li>`
-    numberOfMessages++;
 }
 // gera mensagem privada
 function privateMessage(element) {
@@ -189,23 +187,22 @@ function privateMessage(element) {
         <span>${element.time}</span>
         <p><strong>${element.from}</strong> reservadamente para <strong>${element.to}</strong>: ${element.text}</p>
     </li>`
-        numberOfMessages++;
     }
 }
 // scrolla pra ultima mensagem
 function scrollToLastMessage() {
-    const lastMessage = document.querySelectorAll(".message")[numberOfMessages - 1];
+    let lastMessage = document.querySelectorAll(".message");
+    lastMessage = lastMessage[lastMessage.length - 1]
     lastMessage.scrollIntoView();
-    numberOfMessages = 0;
 }
 
 
 // ENVIAR MENSAGEM
 function sendMessage() {
 
-    let type = document.querySelector('.message-type.selected').querySelector("span").innerText;
+    type = document.querySelector('.message-type.selected').querySelector("span").innerText;
     let text = document.querySelector("#message-text");
-    
+
     if (text.value !== "") {
         if (type == "Público") {
             type = "message";
@@ -218,7 +215,7 @@ function sendMessage() {
             text: text.value,
             type: type
         }
-        
+
         const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", message)
         // promise.catch(refresh)
 
@@ -226,6 +223,22 @@ function sendMessage() {
     }
 
 }
+// mudar texto em baixo do campo de mensagem            
+function changeText() {
+    let textDisplay = document.querySelector(".message-display").querySelector("span")
+
+    console.log(textDisplay);
+    if (contactSelected == null) {
+        textDisplay.innerHTML = `Enviando para Todos (${type})`
+    } else {
+        type = document.querySelector('.message-type.selected').querySelector("span").innerText;
+        textDisplay.innerHTML = `Enviando para ${contactSelected} (${type})`
+        console.log(type)
+    }
+
+}
+
+
 // atuliza caso nao consiga enviar mensagem
 function refresh() {
     window.location.reload()
@@ -237,11 +250,15 @@ function selectContact(element) {
     deselect('contact');
     element.classList.add("selected");
     contactSelected = element.querySelector("span").innerText;
+
+    changeText()
 }
 
 function selectTypeMessage(element) {
     deselect('message-type');
     element.classList.add("selected");
+
+    changeText()
 }
 
 function deselect(className) {

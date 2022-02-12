@@ -32,6 +32,7 @@ body {
     align-items: center;
     margin-top: 94px;
 }
+
 .loading {
     display: none;
     flex-direction: column;
@@ -43,12 +44,14 @@ body {
     height: 180px;
     margin-top: 80px;
 }
-.loading span{
+
+.loading span {
     font-size: 22px;
     font-weight: 500;
     padding-top: 20px;
     padding-left: 25px;
 }
+
 .failure {
     margin-top: 40px;
     color: red;
@@ -56,7 +59,8 @@ body {
     padding: 0px 30px;
     text-align: center;
 }
-.failure strong{
+
+.failure strong {
     font-weight: 700;
 }
 
@@ -116,6 +120,7 @@ main {
     margin-top: 106px;
     overflow-y: scroll;
     background-color: #F3F3F3;
+    overflow-x: hidden;
 }
 
 .message:last-of-type {
@@ -145,6 +150,8 @@ main {
 
 .message strong {
     font-weight: 700;
+    max-width: 100px;
+    text-overflow: ellipsis;
 }
 
 .status {
@@ -182,6 +189,22 @@ footer input {
     font-size: 18px;
     line-height: 21px;
     color: black;
+}
+footer input::placeholder{
+    color: black;
+}
+.message-display{
+    width: 300px;
+    height:64px;
+    margin-top: 15px;
+}
+footer span{
+    display: block;
+    width: 100%;
+    color: #505050;
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 5px;
 }
 
 footer ion-icon {
@@ -239,6 +262,12 @@ h1 {
     margin-right: 8px;
 }
 
+.contacts span {
+    width: 160px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
 .option img {
     width: 15px;
     position: absolute;
@@ -264,8 +293,10 @@ nav li {
     margin-top: 4px;
     font-size: 16px;
     line-height: 19px;
+    display: block;
 }
 
 .message-options ion-icon {
     font-size: 22px;
+    padding-right: 8px;
 }
