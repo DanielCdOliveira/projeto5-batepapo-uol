@@ -227,13 +227,11 @@ function sendMessage() {
 function changeText() {
     let textDisplay = document.querySelector(".message-display").querySelector("span")
 
-    console.log(textDisplay);
     if (contactSelected == null) {
         textDisplay.innerHTML = `Enviando para Todos (${type})`
     } else {
         type = document.querySelector('.message-type.selected').querySelector("span").innerText;
         textDisplay.innerHTML = `Enviando para ${contactSelected} (${type})`
-        console.log(type)
     }
 
 }
