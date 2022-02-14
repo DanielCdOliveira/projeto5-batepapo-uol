@@ -141,6 +141,7 @@ main {
     font-weight: normal;
     color: black;
     border-radius: 2px;
+    word-break: break-all;
 }
 
 .message span {
@@ -184,23 +185,26 @@ footer input {
     height: 30px;
     border: none;
     outline-style: none;
-    font-style: italic;
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
     color: black;
 }
-footer input::placeholder{
+
+footer input::placeholder {
     color: black;
+    font-style: italic;
 }
-.message-display{
+
+.message-display {
     width: 300px;
-    height:64px;
+    height: 64px;
     margin-top: 15px;
 }
-footer span{
+
+footer span {
     display: block;
-    width: 100%;
+    width: 100%;    
     color: #505050;
     font-size: 14px;
     font-weight: 300;
@@ -211,6 +215,9 @@ footer ion-icon {
     font-size: 26px;
 }
 
+.hidden {
+    display: none;
+}
 .blur {
     position: fixed;
     z-index: 1;
@@ -222,9 +229,22 @@ footer ion-icon {
     transition: 0.5s linear;
 }
 
-.hidden {
+.blur-disconnect {
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: 0.5s linear;
+    backdrop-filter: blur(0.5rem);  
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
     display: none;
+    justify-content: center;
+    align-items: center;
 }
+
+
 
 nav {
     width: 0px;
@@ -299,4 +319,26 @@ nav li {
 .message-options ion-icon {
     font-size: 22px;
     padding-right: 8px;
+}
+
+
+.container {
+    width: 250px;
+    height: 180px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 9px;
+    position: relative;
+    font-size: 22px;
+}
+.container :nth-child(1){
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+}
+.container :nth-child(2){
+    font-weight: 700;
+    text-align: center;
+    padding: 25px;
+    border-top: 2px solid grey ;
 }

@@ -49,6 +49,7 @@ function loginSucess() {
 // envia status
 function sendStatus() {
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", userName)
+    promise.catch(refresh)
 }
 // esconde tela de login
 function hideMenu() {
@@ -61,8 +62,7 @@ function hideMenu() {
 // LOGIN FALHOU
 function loginFailure() {
     let failure = document.querySelector(".failure")
-
-    if (userName.name == null) {
+    if (userName.name == "") {
         failure.innerHTML = "Nome de usuário inválido!"
     } else {
         failure.innerHTML = `
@@ -166,16 +166,16 @@ function compareStatus(element) {
 function statusMessage(element) {
     messagesList += `
     <li data-identifier="message" class="message status">
-        <span>${element.time}</span>
-        <p><strong>${element.from}</strong> ${element.text}</p>
+    <p><span>(${element.time})</span>
+        <strong>${element.from}</strong> ${element.text}</p>
     </li>`;
 }
 // gera mensagem normal
 function normalMessage(element) {
     messagesList += `
     <li data-identifier="message" class="message all">
-        <span>${element.time}</span>
-        <p><strong>${element.from}</strong> para <strong>${element.to}</strong>: ${element.text}</p>
+    <p><span>(${element.time})</span>
+        <strong>${element.from}</strong> para <strong>${element.to}</strong>: ${element.text}</p>
     </li>`
 }
 // gera mensagem privada
@@ -184,8 +184,7 @@ function privateMessage(element) {
     if (element.to == userName.name || element.from == userName.name) {
         messagesList += `
     <li data-identifier="message" class="message private">
-        <span>${element.time}</span>
-        <p><strong>${element.from}</strong> reservadamente para <strong>${element.to}</strong>: ${element.text}</p>
+    <p><span>$({element.time})</span><strong>${element.from}</strong> reservadamente para <strong>${element.to}</strong>: ${element.text}</p>
     </li>`
     }
 }
@@ -217,11 +216,20 @@ function sendMessage() {
         }
 
         const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", message)
-        // promise.catch(refresh)
+        promise.catch(refresh)
 
         text.value = "";
     }
 
+}
+// atualiza caso nao consiga enviar mensagem
+function refresh() {
+    let blur = document.querySelector(".blur-disconnect")
+    blur.style.display = "flex"
+}
+// atualiza pagina
+function refreshPage() {
+    window.location.reload()
 }
 // mudar texto em baixo do campo de mensagem            
 function changeText() {
@@ -235,13 +243,6 @@ function changeText() {
     }
 
 }
-
-
-// atuliza caso nao consiga enviar mensagem
-function refresh() {
-    window.location.reload()
-}
-
 
 // FUNÇOES DO MENU LATERAL
 function selectContact(element) {
@@ -279,7 +280,7 @@ function navInteract() {
 document.addEventListener("keypress", function (e) {
     if (e.key === 'Enter') {
 
-        var btn = document.querySelector(".send-message");
+        let btn = document.querySelector(".send-message");
 
         btn.click();
 
