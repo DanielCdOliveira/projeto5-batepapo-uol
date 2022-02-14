@@ -90,7 +90,7 @@ function insertContacts(response) {
 
     if (contactsArray.includes(contactSelected)) {
         contactList = `
-    <li onclick="selectContact(this)" class="option contact">
+    <li onclick="selectContact(this)" data-identifier="participant" class="option contact">
         <ion-icon name="people"></ion-icon>
         <span>Todos</span>
         <img src="assets/Vector.png" alt="">
@@ -98,7 +98,7 @@ function insertContacts(response) {
     } else {
         contactSelected = null;
         contactList = `
-    <li onclick="selectContact(this)" class="option contact selected">
+    <li onclick="selectContact(this)" data-identifier="participant" class="option contact selected">
         <ion-icon name="people"></ion-icon>
         <span>Todos</span>
         <img src="assets/Vector.png" alt="">
@@ -111,7 +111,7 @@ function insertContacts(response) {
         if (element.name != userName.name) {
             if (element.name == contactSelected) {
                 contactList += `
-        <li onclick="selectContact(this)" class="option contact selected">
+        <li onclick="selectContact(this)" data-identifier="participant" class="option contact selected">
             <ion-icon name="people"></ion-icon>
             <span>${element.name}</span>
             <img src="assets/Vector.png" alt="">
@@ -119,7 +119,7 @@ function insertContacts(response) {
 
             } else {
                 contactList += `
-        <li onclick="selectContact(this)" class="option contact">
+        <li onclick="selectContact(this)" data-identifier="participant" class="option contact">
             <ion-icon name="people"></ion-icon>
             <span>${element.name}</span>
             <img src="assets/Vector.png" alt="">
